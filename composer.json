@@ -1,0 +1,16 @@
+{
+    "name": "makena-maryann/currency-exchange-rate",
+    "description": "This package returns the exchange rate for a given amount and currency.",
+    "autoload": {
+        "psr-4": {
+            "MakenaMaryann\\CurrencyExchangeRate\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Makena-Maryann",
+            "email": "maryann.makena00@gmail.com"
+        }
+    ],
+    "require": {}
+}
