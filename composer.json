@@ -12,5 +12,11 @@
             "email": "maryann.makena00@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "php": "^8.2",
+        "illuminate/support": "^10.5",
+        "illuminate/http": "^10.5",
+        "guzzlehttp/guzzle": "^7.2",
+        "darkaonline/l5-swagger": "^2.1"
+    }
 }
