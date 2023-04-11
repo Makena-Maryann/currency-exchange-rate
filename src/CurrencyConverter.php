@@ -11,44 +11,29 @@ class CurrencyConverter
         $response = Http::get('https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml');
 
         if ($response->failed()) {
-            throw new \Exception('Failed to fetch exchange rates from the API.');
+            return response()->json(['message' => 'Failed to fetch exchange rates from the API.'], 500);
         }
 
         $xml = simplexml_load_string($response->body());
-        $namespaces = $xml->getNamespaces(true);
-        $rates = $xml->xpath('//gesmes:Envelope/gv:Cube/gv:Cube[@time]/gv:Cube[@currency]');
+        $json = json_encode($xml);
+        $array = json_decode($json, TRUE);
+        $rates = $array['Cube']['Cube']['Cube'];
+        $rate = 0;
 
-        $exchangeRate = null;
-        foreach ($rates as $rate) {
-            if ((string) $rate['currency'] === $currency) {
-                $exchangeRate = (float) $rate['rate'];
-                break;
+        foreach ($rates as $r) {
+            if ($r['@attributes']['currency'] == $currency) {
+                $rate = $r['@attributes']['rate'];
             }
         }
 
-        if ($exchangeRate === null) {
-            throw new \Exception("Exchange rate not found for currency '$currency'.");
+        if ($rate === 0) {
+            return response()->json(['message' => "Exchange rate not found for currency '$currency'."], 404);
         }
 
-        $convertedAmount = $amount * $exchangeRate;
+        $convertedAmount = $amount * $rate;
+
+        $convertedAmount = round($convertedAmount, 2);
 
         return $convertedAmount;
-        // $response = Http::get(config('exchange-rate.api_url'));
-        // $xml = simplexml_load_string($response->body());
-        // $json = json_encode($xml);
-        // $array = json_decode($json, TRUE);
-        // $rates = $array['Cube']['Cube']['Cube'];
-        // $rate = 0;
-        // foreach ($rates as $r) {
-        //     if ($r['@attributes']['currency'] == $currency) {
-        //         $rate = $r['@attributes']['rate'];
-        //     }
-        // }
-        // $converted = $amount * $rate;
-        // return [
-        //     'amount' => $amount,
-        //     'currency' => $currency,
-        //     'converted' => $converted,
-        // ];
     }
 }
