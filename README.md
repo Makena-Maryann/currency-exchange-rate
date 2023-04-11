@@ -36,11 +36,11 @@ To run the tests, run the following command:
 
 ## Known Issues
 
-    Documentation is not yet available.
+#### Documentation is not yet available.
 
-    Open AI comments have been added to the code but the docs can not be generated yet. This is a known issue and will be fixed in the next release.
+Open AI comments have been added to the code but the docs can not be generated yet. This is a known issue and will be fixed in the next release.
 
-    In the meantime, you can use a provider like [Postman](https://www.postman.com/) to test the API.
+In the meantime, you can use a provider like [Postman](https://www.postman.com/) to test the API.
 
 ## Support and contact details
 
