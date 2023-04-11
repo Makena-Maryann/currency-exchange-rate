@@ -4,7 +4,7 @@ namespace MakenaMaryann\CurrencyExchangeRate\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class InspirationProvider extends ServiceProvider
+class CurrencyExchangeProvider extends ServiceProvider
 {
     /**
      * Bootstrap services.

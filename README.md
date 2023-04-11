@@ -17,3 +17,9 @@ php artisan vendor:publish --provider="YourVendor\CurrencyExchangeRate\CurrencyE
 ## Usage
 
 To use this package, you
+
+## Testing
+
+To run the tests, run the following command:
+
+./vendor/bin/phpunit tests/

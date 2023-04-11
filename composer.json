@@ -3,7 +3,8 @@
     "description": "This package returns the exchange rate for a given amount and currency.",
     "autoload": {
         "psr-4": {
-            "MakenaMaryann\\CurrencyExchangeRate\\": "src/"
+            "MakenaMaryann\\CurrencyExchangeRate\\": "src/",
+            "MakenaMaryann\\CurrencyExchangeRate\\Tests\\": "tests/"
         }
     },
     "authors": [
@@ -18,5 +19,13 @@
         "illuminate/http": "^10.5",
         "guzzlehttp/guzzle": "^7.2",
         "darkaonline/l5-swagger": "^2.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "mockery/mockery": "^1.4",
+        "orchestra/testbench": "^8.3"
+    },
+    "scripts": {
+        "test": "@php ./vendor/bin/phpunit"
     }
 }
