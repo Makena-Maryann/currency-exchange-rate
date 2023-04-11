@@ -8,7 +8,49 @@ use MakenaMaryann\CurrencyExchangeRate\CurrencyConverter;
 
 class CurrencyExchangeController
 {
-    public function __invoke(Request $request, CurrencyConverter $converter): JsonResponse
+    /**
+     * @OA\Get(
+     *     path="/api/v1/currency-exchange",
+     *     operationId="convertCurrency",
+     *     summary="Convert EUR amount to another currency",
+     *     tags={"Currency"},
+     *     @OA\Parameter(
+     *      name="amount",
+     *      parameter="amount",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(type="number"),
+     *     ),
+     *     @OA\Parameter(
+     *      name="currency",
+     *      parameter="currency",
+     *      in="query",
+     *      required=true,
+     *      @OA\Schema(type="string"),
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="OK",
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Page Not Found"
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Unprocessable Entity"
+     *      ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Internal Server Error"
+     *      ),
+     * )
+     */
+    public function convertCurrency(Request $request, CurrencyConverter $converter): JsonResponse
     {
         $request->validate([
             'amount' => 'required|numeric',
@@ -19,16 +61,14 @@ class CurrencyExchangeController
         $currency = $request->input('currency');
         $convertedAmount = $converter->convertCurrency($amount, $currency);
 
-        return new JsonResponse([
+        $response = [
             'success' => true,
-            'data' => [
-                'amount' => $amount,
-                'currency' => $currency,
-                'converted' => $convertedAmount,
-            ],
+            'data' =>  ['converted_amount' => $convertedAmount],
             'error' => null,
             'errors' => [],
             'extra' => []
-        ], 200);
+        ];
+
+        return response()->json($response, 200);
     }
 }
